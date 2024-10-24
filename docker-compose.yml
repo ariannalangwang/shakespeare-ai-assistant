@@ -1,0 +1,8 @@
+services:
+  shakespeare_ai_assistant_container:
+    image: ariannalangwang/shakespeare-ai-assistant
+    container_name: shakespeare_ai_assistant_container
+    env_file:
+      - docker.env
+    ports:
+      - 80:80

@@ -28,4 +28,19 @@ spec:
                 secretKeyRef:
                   name: ai-assistant-secret
                   key: ASSISTANT_ID
+            - name: WHYLABS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: ai-assistant-secret
+                  key: WHYLABS_API_KEY
+            - name: WHYLABS_DEFAULT_ORG_ID
+              valueFrom:
+                secretKeyRef:
+                  name: ai-assistant-secret
+                  key: WHYLABS_DEFAULT_ORG_ID
+            - name: WHYLABS_DEFAULT_DATASET_ID
+              valueFrom:
+                secretKeyRef:
+                  name: ai-assistant-secret
+                  key: WHYLABS_DEFAULT_DATASET_ID
               

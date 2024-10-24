@@ -28,9 +28,8 @@ docker tag <image-name> <docker-username>/<image-name>
 docker push <docker-username>/<image-name>
 ```
 
-
-# Important Code for Docker
-For Mac users:
+### Important Note for Docker Mac users:
+In order to build an image that is usable for Linux machines on the cloud, use commands:
 ```
 docker buildx build --platform=linux/amd64 -t <docker-username>/<image-name>:<tag> .
 docker push <docker-username>/<image-name>:<tag>
