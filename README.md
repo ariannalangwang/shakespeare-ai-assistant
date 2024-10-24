@@ -1,76 +1,35 @@
-# FAST API
+# Shakespeare AI Assistant
+
+This project is an AI-powered assistant that provides comprehensive access to the complete works of William Shakespeare. Users can query the backend API to ask questions about Shakespeare's works, such as summaries, themes, character analysis, and more.
+
+## Overview
+
+The Shakespeare AI Assistant is built as a **Cloud-Native Microservice Application**, designed for scalability and efficiency. It leverages modern cloud infrastructure and DevOps best practices to ensure seamless deployment, monitoring, and updates.
+
+### Key Technologies:
+- **Docker**: Containerization of the application for consistent environments across development and production.
+- **Kubernetes**: Orchestration of containerized workloads for high availability and scaling.
+- **Google Cloud Kubernetes Cluster**: Deployment on GKE (Google Kubernetes Engine) for cloud-native scalability.
+- **CI/CD with GitHub Actions**: Automates the process of building, testing, and deploying the application on each push to the repository.
+- **Model Monitoring with WhyLogs/WhyLabs**: Tracks model performance and logs data, alerting on any significant performance degradation.
+
+### Continuous Integration and Deployment:
+The project utilizes a continuous integration and deployment pipeline. Upon pushing code to the remote GitHub repository, GitHub Actions automatically build, deploy, and update the application on the Google Cloud Kubernetes Cluster.
+
+### Prerequisite: 
+1. Before deploying this project for the very first time, ensure that you have an **empty Google Cloud Kubernetes Cluster** running. This is where your application will be deployed. For example:
 ```
-pip install "fastapi[all]"
-
-uvicorn main:app --reload
-```
-
-
-# Test with Postman
-URL - http://127.0.0.1:80/response
-(POST)
-
-```json
-{
-  "text": "Who is the hero of the story?"
-}
-```
-
-
-# Docker Commands
-```
-docker build -t <image-name> .
- 
-docker run --rm --name <container_name> -e OPENAI_API_KEY=your_openai_api_key -e ASSISTANT_ID=your_assistant_id -p 80:80 <image-name>
-
-docker tag <image-name> <docker-username>/<image-name>
-
-docker push <docker-username>/<image-name>
+$ gcloud container clusters create my-cluster --num-nodes=2 --zone=us-west1-a
 ```
 
-### Important Note for Docker Mac users:
-In order to build an image that is usable for Linux machines on the cloud, use commands:
-```
-docker buildx build --platform=linux/amd64 -t <docker-username>/<image-name>:<tag> .
-docker push <docker-username>/<image-name>:<tag>
-```
+2. The following secret values need to be configured in your repository's GitHub Actions secrets:
 
+- `PROJECT_ID` - Your Google Cloud Project ID
+- `GKE_SA_KEY` - Google Cloud Service Account Key in JSON format
+- `OPENAI_API_KEY` - API key for OpenAI's language model
+- `ASSISTANT_ID` - Unique identifier for the AI assistant instance
+- `WHYLABS_API_KEY` - API key for WhyLabs (used for model monitoring)
+- `WHYLABS_DEFAULT_ORG_ID` - Organization ID for WhyLabs
+- `WHYLABS_DEFAULT_DATASET_ID` - Dataset ID for WhyLabs
 
-# Kubernetes Commands
-```
-kubectl create secret generic ai-assistant-secret \
-  --from-literal=OPENAI_API_KEY=<openai-api-key> \
-  --from-literal=ASSISTANT_ID==<assistant-id>
-
-kubectl get secrets
-kubectl describe secret ai-assistant-secret
-
-kubectl apply -f deploy
-
-kubectl delete -f deploy
-kubectl delete secret ai-assistant-secret
-
-kubectl get pods,svc,deployments,secrets
-```
-
-
-# GCP Commands
-```
-gcloud auth login
-
-gcloud config set project <YOUR_PROJECT_ID>
-gcloud config set project aw-mlops-project
-
-
-gcloud container clusters create my-cluster --num-nodes=2 --zone=us-west1-a
-
-gcloud container clusters get-credentials my-cluster --zone=us-west1-a
-
-kubectl get nodes
-
-kubectl get svc 
-## We can use the service's EXTERNAL-IP to access the app!
-
-
-gcloud container clusters delete my-cluster --zone=us-west1-a
-```
+Ensure these values are securely stored and never hard-coded in your source files.
