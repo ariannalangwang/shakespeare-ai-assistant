@@ -66,9 +66,9 @@ jobs:
         kubectl create secret generic ai-assistant-secret \
           --from-literal=OPENAI_API_KEY=${{secrets.OPENAI_API_KEY}} \
           --from-literal=ASSISTANT_ID=${{secrets.ASSISTANT_ID}} \
-          --from-literal=ASSISTANT_ID=${{secrets.WHYLABS_API_KEY}} \
-          --from-literal=ASSISTANT_ID=${{secrets.WHYLABS_DEFAULT_ORG_ID}} \
-          --from-literal=ASSISTANT_ID=${{secrets.WHYLABS_DEFAULT_DATASET_ID}}
+          --from-literal=WHYLABS_API_KEY=${{secrets.WHYLABS_API_KEY}} \
+          --from-literal=WHYLABS_DEFAULT_ORG_ID=${{secrets.WHYLABS_DEFAULT_ORG_ID}} \
+          --from-literal=WHYLABS_DEFAULT_DATASET_ID=${{secrets.WHYLABS_DEFAULT_DATASET_ID}}
 
     # Deploy the Docker image to the GKE cluster
     - name: Deploy
