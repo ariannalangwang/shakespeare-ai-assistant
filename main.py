@@ -1,18 +1,29 @@
 from openai import OpenAI
 from pydantic import BaseModel
+import pandas as pd
 from fastapi import FastAPI 
 import uvicorn
 
+import whylogs as why
+from whylogs.api.writer.whylabs import WhyLabsWriter
+from langkit import llm_metrics  
+
 import os
 from dotenv import load_dotenv
+
+
 # Load the environment variables from the .env file
 load_dotenv()
-
 # Retrieve the secrets from the loaded environment variables
 openai_api_key = os.getenv('OPENAI_API_KEY')
 assistant_id = os.getenv('ASSISTANT_ID')
+os.getenv("WHYLABS_DEFAULT_ORG_ID")
+os.getenv("WHYLABS_API_KEY")
+os.getenv("WHYLABS_DEFAULT_DATASET_ID")
 
 client = OpenAI(api_key=openai_api_key)
+
+schema = llm_metrics.init()
 
 app = FastAPI()
 
@@ -42,6 +53,11 @@ def generate(body: Body):
             latest_message = messages.data[0]
             text = latest_message.content[0].text.value
             break;
+    
+    data = pd.DataFrame({"Response": [text]})
+    telemetry_agent = WhyLabsWriter()
+    profile = why.log(data, schema=schema)
+    telemetry_agent.write(profile.view())
     
     return text   
 
