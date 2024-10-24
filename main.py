@@ -22,7 +22,7 @@ class Body(BaseModel):
 ## get, post, put, and delete
 @app.get("/") 
 def welcome():
-    return {"message": "Welcome to my AI Assistant"}
+    return {"message": "Welcome to the Shakespeare AI Assistant, where you can explore the wisdom, wit, and wonder of Shakespeare’s complete works."}
 
  
 @app.post("/response")
