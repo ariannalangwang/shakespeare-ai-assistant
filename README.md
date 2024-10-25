@@ -7,6 +7,7 @@ This project is an AI-powered assistant that provides comprehensive access to th
 The Shakespeare AI Assistant is built as a **Cloud-Native Microservice Application**, designed for scalability and efficiency. It leverages modern cloud infrastructure and DevOps best practices to ensure seamless deployment, monitoring, and updates.
 
 ### Key Technologies:
+- **FastAPI**: Builds a RESTful API endpoint, allowing users to query the backend and ask questions about Shakespeare's works.
 - **Docker**: Containerization of the application for consistent environments across development and production.
 - **Kubernetes**: Orchestration of containerized workloads for high availability and scaling.
 - **Google Cloud Kubernetes Cluster**: Deployment on GKE (Google Kubernetes Engine) for cloud-native scalability.
@@ -16,7 +17,7 @@ The Shakespeare AI Assistant is built as a **Cloud-Native Microservice Applicati
 ### Continuous Integration and Deployment:
 The project utilizes a continuous integration and deployment pipeline. Upon pushing code to the remote GitHub repository, GitHub Actions automatically build, deploy, and update the application on the Google Cloud Kubernetes Cluster.
 
-### Prerequisite: 
+### Prerequisites: 
 1. Before deploying this project for the very first time, ensure that you have an **empty Google Cloud Kubernetes Cluster** running. This is where your application will be deployed. For example:
 ```
 $ gcloud container clusters create my-cluster --num-nodes=2 --zone=us-west1-a
